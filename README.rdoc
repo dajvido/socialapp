@@ -1,4 +1,2 @@
 == SocialAPP
 It's application created at workshops in Beside the Park.
-
-<tt>rake doc:app</tt>.
