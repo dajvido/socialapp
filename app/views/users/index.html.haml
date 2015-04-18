@@ -3,6 +3,7 @@
 %table
   %thead
     %tr
+      %th Avatar
       %th Login
       %th Email
       %th
@@ -10,6 +11,7 @@
   %tbody
     - @users.each do |user|
       %tr
+        %td= image_tag user.avatar.url(:thumb)
         %td= user.login
         %td= user.email
         %td= link_to 'Show', user

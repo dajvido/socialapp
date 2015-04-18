@@ -1,6 +1,8 @@
 %p#notice= notice
 
 %p
+  = image_tag @user.avatar.url(:medium)
+%p
   %b Login:
   = @user.login
 %p
