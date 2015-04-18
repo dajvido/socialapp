@@ -23,9 +23,21 @@
 #
 
 class User < ActiveRecord::Base
+  attr_accessor :virtual_login
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
          :confirmable
+
+  def self.find_for_database_authentication(warden_conditions)
+    conditions = warden_conditions.dup
+    if login = conditions.delete(:virtual_login)
+      where(conditions.to_h).where(['LOWER(login) = :value OR LOWER(email) = :value', { :value => login.downcase }]).first
+    else
+      where(conditions.to_h).first
+    end
+  end
+
 end
