@@ -19,7 +19,7 @@ module Socialapp
     config.action_mailer.smtp_settings = {
       address: 'smtp.iq.pl',
       port: 587,
-      user_name: 'socialapp',
+      user_name: 'socialapp@besidethepark.com',
       password: '22owwkja',
       authentication: :login,
       enable_starttls_autc: true
