@@ -7,4 +7,12 @@
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = csrf_meta_tags
   %body
+    - flash.each do |key, value|
+      .alert{ class: "alert-#{key}" }
+        %button.close{ data: { dismiss: :alert } } x
+        %strong
+          = value
+
+    - unless current_user.nil?
+      = link_to 'Log out', destroy_user_session_path, method: :delete
     = yield
