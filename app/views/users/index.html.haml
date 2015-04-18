@@ -6,8 +6,6 @@
       %th Login
       %th Email
       %th
-      %th
-      %th
 
   %tbody
     - @users.each do |user|
@@ -15,9 +13,4 @@
         %td= user.login
         %td= user.email
         %td= link_to 'Show', user
-        %td= link_to 'Edit', edit_user_path(user)
-        %td= link_to 'Destroy', user, :method => :delete, :data => { :confirm => 'Are you sure?' }
 
-%br
-
-= link_to 'New User', new_user_path
