@@ -21,7 +21,13 @@ class MessagesController < ApplicationController
 
   def destroy
     @message = Message.find(params[:id])
-    @message.destroy
+    if @message.user == current_user
+      flash[:success] = 'Message deleted successfully'
+      @message.destroy
+    else
+      flash[:error] = 'You can\'t delete message sent by someone else'
+    end
+    redirect_to messages_path
   end
 
   private

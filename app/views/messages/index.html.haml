@@ -5,10 +5,12 @@
     %tr
       %th User
       %th Message
-      %th
+      %th Options
 
   %tbody
     - @messages.each do |msg|
       %tr
         %td= msg.user.login
         %td= msg.content
+        - if msg.user == current_user
+          %td= link_to 'X', message_path(msg), method: :delete
