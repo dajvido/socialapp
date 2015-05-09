@@ -2,7 +2,8 @@ require 'rails_helper'
 
 RSpec.describe MessagesController, type: :controller do
   before :each do
-    sign_in FactoryGirl.create(:user)
+    @user = FactoryGirl.create(:user)
+    sign_in @user
   end
   describe 'POST create' do
     context 'with valid attributes' do
@@ -28,6 +29,36 @@ RSpec.describe MessagesController, type: :controller do
       it 're-renders the :new template' do
         post :create, message: attributes_for(:message, { content: nil })
         expect(response).to render_template :new
+      end
+    end
+  end
+
+  describe 'DESTROY' do
+    context 'with valid id' do
+      it 'destroy the message from the database' do
+        message = FactoryGirl.create(:message, { user: @user })
+        expect{
+          delete :destroy, id: message
+        }.to change(Message, :count).by(-1)
+      end
+
+      it 'redirects to index' do
+        message = FactoryGirl.create(:message, { user: @user })
+        delete :destroy, id: message
+        expect(response).to redirect_to messages_path
+      end
+    end
+
+    context 'with invalid id' do
+      it 'doesn\'t destroy message from the database' do
+        expect{
+          delete :destroy, id: -1
+        }.not_to change(Message, :count)
+      end
+
+      it 're-renders the :index template' do
+        delete :destroy, id: -1
+        expect(response).to render_template :index
       end
     end
   end
