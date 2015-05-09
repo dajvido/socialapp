@@ -1,6 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe MessagesController, type: :controller do
+  before :each do
+    sign_in FactoryGirl.create(:user)
+  end
   describe 'POST create' do
     context 'with valid attributes' do
       it 'saves the new message in the database' do
@@ -16,7 +19,7 @@ RSpec.describe MessagesController, type: :controller do
     end
 
     context 'with invalid attributes' do
-      it 'does not save the new message in the database' do
+      it 'does not the new message in the database' do
         expect{
           post :create, message: attributes_for(:message, { content: nil })
         }.not_to change(Message, :count)
