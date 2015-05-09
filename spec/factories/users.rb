@@ -24,9 +24,9 @@
 
 FactoryGirl.define do
   factory :user do
-    login "login"
-    email Faker::Internet.email
-    password Faker::Internet.password
+    login { Faker::Internet.user_name }
+    email { Faker::Internet.email }
+    password { Faker::Internet.password }
     confirmed_at Time.now
     confirmation_token nil
   end
