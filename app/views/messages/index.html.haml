@@ -1,0 +1,14 @@
+%h1 Messages
+
+%table
+  %thead
+    %tr
+      %th User
+      %th Message
+      %th
+
+  %tbody
+    - @messages.each do |msg|
+      %tr
+        %td= msg.user.login
+        %td= msg.content
